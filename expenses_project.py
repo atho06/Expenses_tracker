@@ -1,5 +1,5 @@
 import json
-import os
+import os.path
 
 def file():
     print("""MENU
@@ -10,7 +10,8 @@ def file():
 
 def create_user():
     name=input("Enter name of the user:")
-    open('USERS/'+name+'.json', 'w')
+    with open('USERS/' + name + '.json', 'w') as file:
+        json.dump({},file)
     return name
 
 def select_user():
@@ -23,9 +24,9 @@ def select_user():
         print("User not found!!!")
         while True:
             ch=input("Do you want to create a new user?(yes/no):")
-            if ch.lower=='yes':
+            if ch.lower()=='yes':
                 return create_user()#returns name of user
-            elif ch.lower=='no':
+            elif ch.lower()=='no':
                 return None
             else:
                 print("Enter valid answer!!!")
@@ -34,6 +35,9 @@ def display(name):
     with open('USERS/'+name, 'r') as file:
         expenses=json.load(file)
         total_amt=sum(expenses.values())
+        if total_amt==0:
+            print("No expenses")
+            return
         for key, value in expenses.items():
             val=(value/total_amt)*10
             print("|||"*int(val), "-------------->", key)
@@ -56,7 +60,7 @@ def menu():
             if ch==(len(menu)):
                 new_category={}
                 cat_kind=input("Kind of expense:")
-                menu.insert((len(menu)-1), cat) #adds to menu
+                menu.insert((len(menu)-1), cat_kind) #adds to menu
                 new_category[cat_kind]=None
                 with open('USERS/'+name, 'r') as file:
                     expenses = json.load(file)
@@ -66,12 +70,12 @@ def menu():
             elif ch<=len(menu):
                 cat=menu[ch-1]
                 add_amt=float(input("Enter amount to be added:"))
-                with open('homeworkpyth/'+name, 'r') as file:
-                    expenses=json.load(file)
+                with open('USERS/'+name, 'r') as file:
+                    expenses = json.load(file)
                 amt=expenses[cat]
                 amt+=add_amt
                 expenses[cat]=amt
-                with open('homeworkpyth/'+name, 'w') as file:
+                with open('USERS/'+name, 'w') as file:
                     json.dump(expenses, file)
             else:
                 print("Enter valid choice!!!")
