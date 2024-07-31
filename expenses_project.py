@@ -2,9 +2,9 @@ import json
 import os.path
 
 def file():
-    print("""MENU
-1.Load an existing user
-2.Create user""")
+    print("---> MENU <---")
+    print("1.Load an existing user")
+    print("2.Create user")
     ch=int(input("Enter your choice:"))
     return ch
 
@@ -47,11 +47,10 @@ def menu():
     global name
     menu=['Food', 'Transportration', 'Entertainment', 'Education', 'Clothing', 'Housing', 'Add new category']
     while True:
-        print("""\n\nMENU:
-1. Add expenses
-2.Display statistics
-3.EXIT
-""")
+        print("\nMENU:")
+        print("1. Add expenses")
+        print("2.Display statistics")
+        print("3.EXIT")
         ch=int(input("Enter your choice:"))
         if ch==1:
             for i in range (len(menu)):
