@@ -56,29 +56,18 @@ def menu():
         "Education",
         "Clothing",
         "Housing",
-        "Add new category",
     ]
     while True:
-        print("\nMENU:")
+        print("\n---> MENU <----")
         print("1. Add expenses")
         print("2. Display statistics")
         print("3. EXIT")
         ch = int(input("Enter your choice:"))
         if ch == 1:
-            for i, cat in enumerate(category)):
+            for i, cat in enumerate(category):
                 print(i + 1, ".", cat)
             ch = int(input("Enter your choice:"))
-            if ch == (len(category)):
-                new_category = {}
-                cat_kind = input("Kind of expense:")
-                category.insert((len(category) - 1), cat_kind)  # adds to menu
-                new_category[cat_kind] = None
-                with open("USERS/" + name, "r") as file:
-                    expenses = json.load(file)
-                    expenses.update(new_category)
-                with open("USERS/" + name, "w") as file:
-                    json.dump(expenses)
-            elif ch <= len(category):
+            if ch <= len(category):
                 cat = category[ch - 1]
                 add_amt = float(input("Enter amount to be added:"))
                 with open("USERS/" + name, "r") as file:
