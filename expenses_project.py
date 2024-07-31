@@ -67,11 +67,10 @@ def menu():
             for i, cat in enumerate(category):
                 print(i + 1, ".", cat)
             ch = int(input("Enter your choice:"))
+
             if ch <= len(category):
                 cat = category[ch - 1]
                 add_amt = float(input("Enter amount to be added:"))
-                with open("USERS/" + name, "r") as file:
-                    expenses = json.load(file)
                 amt = expenses[cat]
                 amt += add_amt
                 expenses[cat] = amt
@@ -88,11 +87,11 @@ def menu():
 
 
 # MAIN
-print(
-    """***********************
-*  EXPENSE TRACKER  *
-***********************"""
-)
+print("***********************")
+print("*  EXPENSE TRACKER  *")
+print("***********************")
+
+
 while True:
     choice = file()
     if choice == 1:
