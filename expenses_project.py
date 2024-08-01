@@ -11,7 +11,8 @@ def file():
 def create_user():
     name=input("Enter name of the user:")
     with open('USERS/' + name + '.json', 'w') as file:
-        json.dump({},file)
+        expenses={'Food':0, 'Transportation':0, 'Entertainment':0, 'Education':0, 'Clothing':0, 'Housing':0}
+        json.dump(expenses,file)
     return name
 
 def select_user():
@@ -32,6 +33,9 @@ def select_user():
                 print("Enter valid answer!!!")
 
 def display(name):
+    if os.path.getsize('USERS/'+name) == 0:
+        print("No expenses")
+        return
     with open('USERS/'+name, 'r') as file:
         expenses=json.load(file)
         total_amt=sum(expenses.values())
@@ -45,7 +49,7 @@ def display(name):
     
 def menu():
     global name
-    menu=['Food', 'Transportration', 'Entertainment', 'Education', 'Clothing', 'Housing', 'Add new category']
+    menu=['Food', 'Transportation', 'Entertainment', 'Education', 'Clothing', 'Housing', 'Add new category']
     while True:
         print("""\n\nMENU:
 1. Add expenses
@@ -62,6 +66,9 @@ def menu():
                 cat_kind=input("Kind of expense:")
                 menu.insert((len(menu)-1), cat_kind) #adds to menu
                 new_category[cat_kind]=None
+                if os.path.getsize('USERS/'+name) == 0:
+                    print("No expenses")
+                    return
                 with open('USERS/'+name, 'r') as file:
                     expenses = json.load(file)
                     expenses.update(new_category)
@@ -70,6 +77,9 @@ def menu():
             elif ch<=len(menu):
                 cat=menu[ch-1]
                 add_amt=float(input("Enter amount to be added:"))
+                if os.path.getsize('USERS/'+name) == 0:
+                    print("No expenses")
+                    return
                 with open('USERS/'+name, 'r') as file:
                     expenses = json.load(file)
                 amt=expenses[cat]
