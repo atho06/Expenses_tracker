@@ -29,8 +29,10 @@ def display(expenses):
         print("No expenses")
         return
     for key, value in expenses.items():
-        val = (sum(value) / total_amt) * 10
-        print("|||" * int(val), "-------------->", key)
+        cat_total=sum(value)
+        val = (cat_total / total_amt) * 100
+        bar_len=(val/2)
+        print("|" * int(bar_len), "-------------->", key)
 
 def menu(expenses):
     menu = ['Food', 'Transportation', 'Entertainment', 'Education', 'Clothing', 'Housing']
