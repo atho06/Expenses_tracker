@@ -2,7 +2,7 @@ import json
 
 def create_user():
     with open('user.json', 'w') as file:
-        expenses = {'Food': 0, 'Transportation': 0, 'Entertainment': 0, 'Education': 0, 'Clothing': 0, 'Housing': 0}
+        expenses = {'Food': [], 'Transportation': [], 'Entertainment': [], 'Education': [], 'Clothing': [], 'Housing': []}
         json.dump(expenses, file)
 
 def load_user():
@@ -10,6 +10,7 @@ def load_user():
         with open('user.json', 'r') as file:
             expenses = json.load(file)
             print("User loaded successfully.")
+            print(expenses)
             return expenses
     except FileNotFoundError:
         print("File not present!!!")
@@ -21,12 +22,14 @@ def load_user():
 
 
 def display(expenses):
-    total_amt = sum(expenses.values())
+    total_amt = 0
+    for key, value in expenses.items():
+        total_amt+=sum(value)
     if total_amt == 0:
         print("No expenses")
         return
     for key, value in expenses.items():
-        val = (value / total_amt) * 10
+        val = (sum(value) / total_amt) * 10
         print("|||" * int(val), "-------------->", key)
 
 def menu(expenses):
@@ -45,7 +48,7 @@ def menu(expenses):
             if ch <= len(menu):
                 cat = menu[ch - 1]
                 add_amt = float(input("Enter amount to be added: "))
-                expenses[cat] += add_amt
+                expenses[cat].append(add_amt)
             else:
                 print("Enter valid choice!!!")
         elif ch == 2:
